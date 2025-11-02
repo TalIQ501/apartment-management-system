@@ -1,20 +1,12 @@
-import { buildApp } from "./app";
-
-const schema = {
-  type: "object",
-  required: ["PORT"],
-  properties: {
-    PORT: {
-      type: "number",
-    },
-  },
-};
+import { buildApp } from "./app.js";
 
 const start = async () => {
   const app = await buildApp();
 
   try {
-    await app.listen({ port: 3000 });
+    const port = app.config.PORT;
+    await app.listen({ port });
+    console.log(`Server listening at Port ${port}`);
   } catch (err) {
     app.log.error(err);
     process.exit(1);
