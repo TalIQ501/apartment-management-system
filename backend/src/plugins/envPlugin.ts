@@ -4,7 +4,7 @@ import type { FastifyPluginAsync } from "fastify";
 
 export interface EnvConfig {
   PORT: number
-}
+};
 
 const schema = {
   type: "object",
