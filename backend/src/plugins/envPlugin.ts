@@ -4,6 +4,7 @@ import type { FastifyPluginAsync } from "fastify";
 
 export interface EnvConfig {
   PORT: number
+  DATABASE_URL: string
 };
 
 const schema = {
@@ -13,6 +14,9 @@ const schema = {
     PORT: {
       type: "number",
     },
+    DATABASE_URL: {
+      type: "string"
+    }
   },
 } as const;
 
