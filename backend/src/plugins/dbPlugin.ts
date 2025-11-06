@@ -16,8 +16,8 @@ export const dbPlugin: FastifyPluginAsync = async (app) => {
 
 export default fp(dbPlugin);
 
-declare module 'fastify' {
-    interface FastifyInstance {
-        db: pg.Pool
-    }
+declare module "fastify" {
+  interface FastifyInstance {
+    db: pg.Pool;
+  }
 }
