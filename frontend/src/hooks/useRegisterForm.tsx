@@ -1,21 +1,59 @@
 import { useState } from "react";
+import type z from "zod";
 
-interface RegisterData {
-  username: string;
-  email: string;
-  password: string;
+interface PersonInput {
+  first_name: string;
+  last_name?: string;
+  email?: string;
+  contact_1?: string;
+  contact_2?: string;
+  date_of_birth: Date;
+  identity_no: string;
+  father_id?: string;
+  mother_id?: string;
+  guardian_id?: string;
 }
 
-export const useRegisterForm = () => {
-  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (data: RegisterData) => {
+
+export const useRegisterForm = () => {
+  const [errors, setErrors] = useState<string | null>(null);
+
+  const validateStep = (stepData, schema: z.ZodSchema) => {
+    const result = schema.safeParse(stepData);
+
+    if (!result.success) {
+      const newErrors: Record<string, string> = {};
+
+      setErrors(result.error);
+
+      return false;
+    }
+
+    return true;
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+  
+      if (step === 0) {
+        console.log("Sending an email (mock) verification:", formData.email);
+        await fakeEmailVerification(formData.email);
+        nextStep();
+      } else if (step === formSteps.length - 1) {
+        console.log("Submitting full registration:", formData);
+        setFormData({});
+        navigate("/");
+      }
+    };
+
+  const handleSubmit = async (data: PersonInput) => {
     setError(null);
 
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-      if (!data.email.includes("@")) {
+      if (data.email && !data.email.includes("@")) {
         throw new Error("Invalid Email Address");
       }
 
