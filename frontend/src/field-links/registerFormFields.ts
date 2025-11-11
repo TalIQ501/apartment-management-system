@@ -58,7 +58,26 @@ export const registerPersonFields = [
   },
 ];
 
-
+export const registerRelativeInfoFields = [
+  {
+    form_section: "Father Information",
+    fields: registerPersonFields.map(f => (
+      { ...f, prefix: "father_" }
+    ))
+  },
+  {
+    form_section: "Mother Information",
+    fields: registerPersonFields.map(f => (
+      { ...f, prefix: "mother_" }
+    ))
+  },
+  {
+    form_section: "Guardian Information",
+    fields: registerPersonFields.map(f => (
+      { ...f, prefix: "guardian_" }
+    ))
+  },
+]
 
 // {
 //    "",
